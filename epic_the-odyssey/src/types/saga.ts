@@ -11,4 +11,4 @@ export interface Saga {
   audioTracks: AudioTrack[];
   description: string;
   information: string;
-} 
+}

@@ -107,6 +107,7 @@
   padding: 0;
   line-height: 1;
 }
+
 .play-button:hover {
   transform: scale(1.05);
 }
@@ -154,4 +155,4 @@
 
 .volume-slider:hover::-moz-range-thumb {
   transform: scale(1.2);
-} 
+}

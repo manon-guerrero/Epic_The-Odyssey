@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Saga } from '../types/saga';
-import './MusicPlayer.css';
+import React, { useState, useRef, useEffect } from "react";
+import { Saga } from "../types/saga";
+import "./MusicPlayer.css";
 
 interface MusicPlayerProps {
   selectedSaga: Saga;
@@ -8,13 +8,17 @@ interface MusicPlayerProps {
 
 export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrackId, setCurrentTrackId] = useState(selectedSaga.audioTracks[0]?.id);
+  const [currentTrackId, setCurrentTrackId] = useState(
+    selectedSaga.audioTracks[0]?.id
+  );
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const currentTrack = selectedSaga.audioTracks.find(track => track.id === currentTrackId);
+  const currentTrack = selectedSaga.audioTracks.find(
+    (track) => track.id === currentTrackId
+  );
 
   useEffect(() => {
     setIsPlaying(false);
@@ -43,7 +47,7 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const handleTimeUpdate = () => {
@@ -67,7 +71,9 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
         {selectedSaga.audioTracks.map((track) => (
           <button
             key={track.id}
-            className={`track-button ${currentTrackId === track.id ? 'active' : ''}`}
+            className={`track-button ${
+              currentTrackId === track.id ? "active" : ""
+            }`}
             onClick={(e) => handleTrackSelect(track.id, e)}
           >
             {track.title}
@@ -81,9 +87,9 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
-          
+
           <div className="progress-bar">
-            <div 
+            <div
               className="progress"
               style={{ width: `${(currentTime / duration) * 100}%` }}
             />
@@ -91,14 +97,14 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
 
           <div className="controls-row">
             <div className="controls-group">
-              <button 
+              <button
                 className="play-button"
                 onClick={(e) => {
                   e.stopPropagation();
                   togglePlay();
                 }}
               >
-                {isPlaying ? '⏸' : '▶'}
+                {isPlaying ? "⏸" : "▶"}
               </button>
               <div className="volume-control">
                 <input
@@ -125,4 +131,4 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
       )}
     </div>
   );
-} 
+}

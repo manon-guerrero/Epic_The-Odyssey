@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MusicPlayer } from "./components/MusicPlayer";
 import { Saga } from "./types/saga";
 import "./App.css";
@@ -399,15 +399,14 @@ function App() {
         ))}
       </div>
 
-      <button
-        className="toggle-info"
-        onClick={() => setShowInfo(!showInfo)}
-        aria-label={showInfo ? "Hide Information" : "Show Information"}
-      >
-        {showInfo ? "❯" : "❮"}
-      </button>
-
-      <div className={`info-panel ${!showInfo ? "hidden" : ''}`}>
+      <div className={`info-panel ${!showInfo ? "hidden" : ""}`}>
+        <button
+          className="toggle-info"
+          onClick={() => setShowInfo(!showInfo)}
+          aria-label={showInfo ? "Hide Information" : "Show Information"}
+        >
+          {showInfo ? "❯" : "❮"}
+        </button>
         <div className="info-content">
           <div className="info-section">
             <h3>Informations</h3>
