@@ -81,12 +81,6 @@ body {
   scroll-behavior: smooth;
   box-sizing: border-box;
 
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -99,10 +93,9 @@ body {
   height: 100vh;
   background: rgba(0, 10, 31, 0.95);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
-  transform: translateX(0);
   transition: transform 0.3s ease;
   z-index: 10;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .info-panel.hidden {
@@ -110,14 +103,13 @@ body {
 }
 
 .toggle-info {
-  position: absolute;
+  position: fixed;
+  overflow: visible;
   top: 50%;
-  left: -20px;
-  transform: translateY(-50%);
   background: #1a237e;
   border: none;
   color: white;
-  width: 20px;
+  width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
