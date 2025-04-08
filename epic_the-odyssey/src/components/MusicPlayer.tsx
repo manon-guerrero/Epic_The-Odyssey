@@ -11,12 +11,12 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
   const [currentTrackId, setCurrentTrackId] = useState(selectedSaga.audioTracks[0]?.id);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const currentTrack = selectedSaga.audioTracks.find(track => track.id === currentTrackId);
 
   useEffect(() => {
-    // Reset player when saga changes
     setIsPlaying(false);
     setCurrentTime(0);
     setCurrentTrackId(selectedSaga.audioTracks[0]?.id);
@@ -53,6 +53,14 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
     }
   };
 
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
   return (
     <div className="music-player" onClick={(e) => e.stopPropagation()}>
       <div className="track-list">
@@ -81,15 +89,30 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
             />
           </div>
 
-          <button 
-            className="play-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              togglePlay();
-            }}
-          >
-            {isPlaying ? '⏸' : '▶'}
-          </button>
+          <div className="controls-row">
+            <div className="controls-group">
+              <button 
+                className="play-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  togglePlay();
+                }}
+              >
+                {isPlaying ? '⏸' : '▶'}
+              </button>
+              <div className="volume-control">
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                  className="volume-slider"
+                />
+              </div>
+            </div>
+          </div>
 
           <audio
             ref={audioRef}

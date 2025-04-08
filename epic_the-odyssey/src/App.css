@@ -69,8 +69,8 @@ body {
 
 .container {
   margin-left: 200px;
-  margin-right: 300px;
-  width: calc(100% - 500px);
+  margin-right: 400px;
+  width: calc(100% - 600px);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -80,12 +80,12 @@ body {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   box-sizing: border-box;
-  
+
 
   &::-webkit-scrollbar {
     display: none;
   }
-  
+
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -104,52 +104,33 @@ body {
   overflow-y: auto;
 }
 
-.info-content {
-  padding: 2rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.info-panel.hidden {
+  transform: translateX(100%);
+}
+
+.toggle-info {
+  position: absolute;
+  right: 400px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1a237e;
+  border: none;
   color: white;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.info-header {
-  position: sticky;
-  top: 0;
-  background: rgba(0, 10, 31, 0.95);
-  padding: 0;
-  z-index: 2;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.info-header h2 {
-  margin: 0;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px 0 0 4px;
   font-size: 1rem;
-  color: #646cff;
+  padding: 0;
+  z-index: 11;
+  transition: right 0.3s ease;
 }
 
-.info-section {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 2rem;
-}
-
-.info-section h3 {
-  color: white;
-  margin: 0;
-  font-size: 1.2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 0.5rem;
-}
-
-.info-section p {
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-  white-space: pre-line;
-  text-align: justify;
-  letter-spacing: 0.3px;
+.toggle-info:hover {
+  background: #283593;
 }
 
 .info-panel::-webkit-scrollbar {
@@ -239,31 +220,248 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.toggle-info {
-  position: absolute;
-  left: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #1a237e;
-  border: none;
-  color: white;
-  width: 20px;
-  height: 40px;
+.saga-card {
+  min-height: calc(100vh - 4rem);
+  width: 100%;
+  perspective: 1000px;
+  scroll-snap-align: center;
   display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  border-radius: 4px 0 0 4px;
-  font-size: 1rem;
+  align-items: center;
   padding: 0;
+  margin: 0;
 }
 
-.toggle-info:hover {
-  background: #283593;
+.saga-card-inner {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.saga-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.saga-card-front,
+.saga-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.684);
+  overflow: hidden;
+}
+
+.saga-card-front {
+  background: #1a1a1a;
+}
+
+.saga-card-back {
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotateY(180deg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+.saga-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-player {
+  margin-top: auto;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: white;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 95%;
+}
+
+.saga-image:hover {
+  transform: scale(1.02);
+}
+
+.saga-image.selected {
+  border: 2px solid #646cff;
+  box-shadow: 0 0 15px rgba(100, 108, 255, 0.5);
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.info-panel.hidden ~ .toggle-info {
+  right: 0;
+}
+
+/* Add animation for info panel */
+.info-panel {
+  transform: translateX(0);
 }
 
 .info-panel.hidden {
   transform: translateX(100%);
+}
+
+.info-content {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: white;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.info-header {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 10, 31, 0.95);
+  padding: 1rem 0;
+  z-index: 2;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: #646cff;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.info-section h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.info-section p {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  white-space: pre-line;
+  text-align: justify;
+  letter-spacing: 0.3px;
+}
+
+.info-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.info-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.info-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.info-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.edit-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.edit-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.title-input {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.description-input {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.save-button,
+.cancel-button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.save-button {
+  background: #646cff;
+  border: none;
+  color: white;
+}
+
+.save-button:hover {
+  background: #7c82ff;
+}
+
+.cancel-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .saga-card {
@@ -341,7 +539,7 @@ p {
   font-size: 0.9rem;
   line-height: 1.5;
   text-align: center;
-  max-width: 80%;
+  max-width: 95%;
 }
 
 .saga-image:hover {
@@ -351,6 +549,80 @@ p {
 .saga-image.selected {
   border: 2px solid #646cff;
   box-shadow: 0 0 15px rgba(100, 108, 255, 0.5);
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    margin-right: 300px;
+    width: calc(100% - 500px);
+  }
+
+  .info-panel {
+    width: 300px;
+  }
+
+  .toggle-info {
+    right: 300px;
+  }
+
+  .info-panel.hidden ~ .toggle-info {
+    right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    position: relative;
+  }
+
+  .container {
+    margin-right: 30px;
+    margin-left: 0;
+    width: calc(100% - 30px);
+  }
+
+  .side-menu {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .info-panel {
+    width: 250px;
+  }
+
+  .toggle-info {
+    right: 250px;
+  }
+
+  .info-panel.hidden ~ .toggle-info {
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-right: 25px;
+    width: calc(100% - 25px);
+  }
+
+  .info-panel {
+    width: 200px;
+  }
+
+  .toggle-info {
+    right: 200px;
+    width: 25px;
+    height: 50px;
+  }
+
+  .info-panel.hidden ~ .toggle-info {
+    right: 0;
+  }
 }
 
 .volume-control {
@@ -406,8 +678,3 @@ p {
 .volume-slider:hover::-moz-range-thumb {
   transform: scale(1.2);
 }
-
-.edit-input:focus {
-  outline: none;
-  border-color: #646cff;
-} 
