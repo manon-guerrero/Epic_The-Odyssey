@@ -91,7 +91,9 @@ body {
   top: 0;
   width: 400px;
   height: 100vh;
-  background: rgba(0, 10, 31, 0.95);
+  background: rgba(0, 10, 31, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
   z-index: 10;
@@ -104,12 +106,12 @@ body {
 
 .toggle-info {
   position: fixed;
-  overflow: visible;
   top: 50%;
+  transform: translateY(-50%);
   background: #1a237e;
   border: none;
   color: white;
-  width: 40px;
+  width: 20px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -119,12 +121,21 @@ body {
   font-size: 1rem;
   padding: 0;
   z-index: 20;
+  transition: right 0.3s ease;
 }
+
+.toggle-info.panel-open {
+  right: 400px;
+}
+
+.toggle-info.panel-closed {
+  right: 0;
+}
+
 
 .toggle-info:hover {
   background: #283593;
 }
-
 
 .info-panel::-webkit-scrollbar {
   width: 8px;
@@ -305,93 +316,6 @@ p {
   margin-bottom: 1rem;
 }
 
-.saga-card {
-  min-height: calc(100vh - 4rem);
-  width: 100%;
-  perspective: 1000px;
-  scroll-snap-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-}
-
-.saga-card-inner {
-  width: 500px;
-  height: 500px;
-  position: relative;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-  cursor: pointer;
-}
-
-.saga-card-inner.flipped {
-  transform: rotateY(180deg);
-}
-
-.saga-card-front,
-.saga-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.684);
-  overflow: hidden;
-}
-
-.saga-card-front {
-  background: #1a1a1a;
-}
-
-.saga-card-back {
-  background: rgba(255, 255, 255, 0.1);
-  transform: rotateY(180deg);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  box-sizing: border-box;
-}
-
-.saga-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.card-player {
-  margin-top: auto;
-}
-
-h2 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: white;
-  text-align: center;
-}
-
-p {
-  margin: 0;
-  opacity: 0.8;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  text-align: center;
-  max-width: 95%;
-}
-
-.saga-image:hover {
-  transform: scale(1.02);
-}
-
-.saga-image.selected {
-  border: 2px solid #646cff;
-  box-shadow: 0 0 15px rgba(100, 108, 255, 0.5);
-}
-
 
 @media (max-width: 1200px) {
   .container {
@@ -407,7 +331,7 @@ p {
     transform: translateX(300px);
   }
 
-  .toggle-info {
+  .toggle-info.panel-open {
     right: 300px;
   }
 }
@@ -436,7 +360,7 @@ p {
     transform: translateX(250px);
   }
 
-  .toggle-info {
+  .toggle-info.panel-open {
     right: 250px;
   }
 }
@@ -455,8 +379,11 @@ p {
     transform: translateX(200px);
   }
 
-  .toggle-info {
+  .toggle-info.panel-open {
     right: 200px;
+  }
+
+  .toggle-info {
     width: 25px;
     height: 50px;
   }

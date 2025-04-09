@@ -399,14 +399,15 @@ function App() {
         ))}
       </div>
 
+      <button
+        className={`toggle-info ${showInfo ? "panel-open" : "panel-closed"}`}
+        onClick={() => setShowInfo(!showInfo)}
+        aria-label={showInfo ? "Hide Information" : "Show Information"}
+      >
+        {showInfo ? "❯" : "❮"}
+      </button>
+
       <div className={`info-panel ${!showInfo ? "hidden" : ""}`}>
-        <button
-          className="toggle-info"
-          onClick={() => setShowInfo(!showInfo)}
-          aria-label={showInfo ? "Hide Information" : "Show Information"}
-        >
-          {showInfo ? "❯" : "❮"}
-        </button>
         <div className="info-content">
           <div className="info-section">
             <h3>Informations</h3>
