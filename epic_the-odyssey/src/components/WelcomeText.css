@@ -6,12 +6,13 @@
   text-align: center;
   color: white;
   z-index: 100;
-  animation: fadeInOut 15s ease-in-out;
+  animation: fadeInOut 10s ease-in-out;
   pointer-events: none;
   background: rgba(0, 10, 31, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.684);
 }
 
 .welcome-text h1 {

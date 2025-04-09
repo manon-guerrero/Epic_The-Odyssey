@@ -260,7 +260,7 @@ const sagas: Saga[] = [
     ],
     description: "Odysseus' escapes from Calypso.",
     information:
-      '📖 Myth Version: Odysseus navigates Charybdis’ whirlpool, clinging to a fig tree to survive. Poseidon hounds him still, but Zeus’ decree holds—the sea god can’t kill him. Exhausted, he drifts to Phaeacia, then home, his 20-year ordeal ending without a final showdown.\n\n🎶 Musical Version: In EPIC, Athena sends Hermes to nudge Odysseus past Charybdis’ jaws. Poseidon ambushes, taunting him to drown—yet his family pulls him through. Wielding Poseidon’s trident, Odysseus stabs 600 times, the god’s screams a symphony. Broken, Poseidon yields, storms fading, leaving the king to sail free.\n\n✨ Fun Fact: ‘600 Strike’ took Jorge months to perfect—Odysseus’ rage echoes in every beat!"\n\n🎭 Cast: Jorge Rivera-Herrans (Odysseus), Troy Doherty (Hermes), Steven Rodriguez (Poseidon), A Vacuum Cleaner (Charybdis).',
+      "📖 Myth Version: Odysseus navigates Charybdis’ whirlpool, clinging to a fig tree to survive. Poseidon hounds him still, but Zeus’ decree holds—the sea god can’t kill him. Exhausted, he drifts to Phaeacia, then home, his 20-year ordeal ending without a final showdown.\n\n🎶 Musical Version: In EPIC, Athena sends Hermes to nudge Odysseus past Charybdis’ jaws. Poseidon ambushes, taunting him to drown—yet his family pulls him through. Wielding Poseidon’s trident, Odysseus stabs 600 times, the god’s screams a symphony. Broken, Poseidon yields, storms fading, leaving the king to sail free.\n\n✨ Fun Fact: ‘600 Strike’ took Jorge months to perfect—Odysseus’ rage echoes in every beat!\n\n🎭 Cast: Jorge Rivera-Herrans (Odysseus), Troy Doherty (Hermes), Steven Rodriguez (Poseidon), A Vacuum Cleaner (Charybdis).",
   },
   {
     id: "ithaca",
@@ -296,6 +296,15 @@ const sagas: Saga[] = [
     description: "Odysseus' final return to Ithaca.",
     information:
       '📖 Myth Version: Odysseus washes ashore in Ithaca, naked, aided by Phaeacians. Disguised, he finds suitors plaguing his home. His recurve bow—tough to string—becomes his test; he strings it, slays them all, and reclaims Penelope and Telemachus after 20 years.\n\n🎶 Musical Version: In EPIC, Odysseus storms Ithaca, rage unleashed. He massacres the suitors, saving his family. Athena returns, their bond mended. ‘Will You Fall in Love with Me Again?’ reunites him with Penelope, sealing their long-awaited homecoming.\n\n✨ Fun Fact: Penelope singing the word "waiting" seven times, is a nod to the seven sagas she waited for him to return home after the war, the moment lasts 20 seconds, for the 20 years he was away.\n\n🎭 Cast: Jorge Rivera-Herrans (Odysseus), Miguel Veloso (Telemachus), Ayron Alexander (Antinous), Anna Lea (Penelope), Dennis Diaz (Eurymachus), Tristan Caldwell (Amphinomus), Jamie Wiltshire (Melanthius),Teagan Earley (Athena).',
+  },
+
+  {
+    id: "playlist",
+    title: "Full Playlist",
+    image: "/images/fullPlaylist.jpg",
+    link: "https://youtube.com/playlist?list=PLTs1gCDJMwHSjorLXqyaVF4b1OSLhGIuT&si=EubTXGxcUg7_pMIP",
+    information:
+      "EPIC: The Musical is a musical adaptation of Homer's Odyssey created by Jorge Rivera-Herrans. The creation of the musical was documented through Jorge's TikTok, and the song clips and process videos have gone viral on social media, with the process gaining over 60 million views across TikTok. He started working on it in June of 2019, for his senior thesis for college. On January 17, 2021, he uploaded his first video on TikTok where he introduced the musical by singing an older draft of Full Speed Ahead.[2] He soon released other excerpts of songs from the musical and began to garner an audience. Casting auditions were also held on TikTok, and for this purpose, instrumentals of song excerpts were released for accompaniment. The final draft of the musical was completed in 2023. The Troy Saga was released on December 25th, 2022, and the Ithaca saga, end of the musical, was released on December 25th, 2024, marking the end of EPIC's pre-release phase.",
   },
 ];
 
@@ -365,6 +374,7 @@ function App() {
       />
 
       <div className="container">
+        // ... existing code ...
         {sagas.map((saga) => (
           <div
             key={saga.id}
@@ -376,7 +386,13 @@ function App() {
               className={`saga-card-inner ${
                 flippedCardId === saga.id ? "flipped" : ""
               }`}
-              onClick={() => handleCardClick(saga)}
+              onClick={() => {
+                if (saga.id === "playlist" && saga.link) {
+                  window.open(saga.link, "_blank");
+                } else {
+                  handleCardClick(saga);
+                }
+              }}
             >
               <div className="saga-card-front">
                 <img src={saga.image} alt={saga.title} className="saga-image" />
@@ -384,7 +400,7 @@ function App() {
               <div className="saga-card-back">
                 <h2>{saga.title}</h2>
                 <p>{saga.description}</p>
-                {selectedSaga?.id === saga.id && (
+                {selectedSaga?.id === saga.id && !saga.link && (
                   <MusicPlayer selectedSaga={saga} />
                 )}
               </div>

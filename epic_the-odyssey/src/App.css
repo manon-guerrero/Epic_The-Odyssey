@@ -227,6 +227,25 @@ p {
   transform: scale(1.2);
 }
 
+.saga-card[data-is-playlist="true"] {
+  cursor: pointer;
+}
+
+.saga-card[data-is-playlist="true"] .saga-card-inner {
+  transition: transform 0.3s ease;
+}
+
+.saga-card[data-is-playlist="true"] .saga-card-inner:hover {
+  transform: scale(1.02);
+}
+
+.saga-card[data-is-playlist="true"] .saga-card-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 @media (max-width: 1200px) {
   .container {
     margin-right: 300px;

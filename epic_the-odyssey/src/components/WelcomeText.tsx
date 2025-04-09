@@ -7,7 +7,7 @@ export function WelcomeText() {
     useEffect(() => {
       const timer = setTimeout(() => {
         setShowText(false);
-      }, 15000);
+      }, 10000);
 
       return () => clearTimeout(timer);
     }, []);
