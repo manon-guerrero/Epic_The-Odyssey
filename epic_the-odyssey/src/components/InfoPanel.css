@@ -1,0 +1,151 @@
+.info-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 400px;
+  height: 100vh;
+  background: rgba(0, 10, 31, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+  z-index: 10;
+  overflow: visible;
+  overflow: auto;
+}
+
+.info-panel.hidden {
+  transform: translateX(400px);
+}
+
+.toggle-info {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1a237e;
+  border: none;
+  color: white;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  padding: 0;
+  z-index: 20;
+  transition: right 0.3s ease;
+}
+
+.toggle-info.panel-open {
+  right: 400px;
+}
+
+.toggle-info.panel-closed {
+  right: 0;
+}
+
+.toggle-info:hover {
+  background: #283593;
+}
+
+.info-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.info-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.info-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.info-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.info-content {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: white;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.info-section h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.info-section p {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  white-space: pre-line;
+  text-align: justify;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 1200px) {
+  .info-panel {
+    width: 300px;
+  }
+
+  .info-panel.hidden {
+    transform: translateX(300px);
+  }
+
+  .toggle-info.panel-open {
+    right: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .info-panel {
+    width: 250px;
+  }
+
+  .info-panel.hidden {
+    transform: translateX(250px);
+  }
+
+  .toggle-info.panel-open {
+    right: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-panel {
+    width: 200px;
+  }
+
+  .info-panel.hidden {
+    transform: translateX(200px);
+  }
+
+  .toggle-info.panel-open {
+    right: 200px;
+  }
+
+  .toggle-info {
+    width: 25px;
+    height: 50px;
+  }
+}

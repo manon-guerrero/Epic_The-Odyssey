@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { MusicPlayer } from "./components/MusicPlayer";
+import { SideMenu } from "./components/SideMenu";
+import { InfoPanel } from "./components/InfoPanel";
 import { Saga } from "./types/saga";
 import "./App.css";
 
@@ -354,21 +356,11 @@ function App() {
 
   return (
     <div className="app-layout">
-      <nav className="side-menu">
-        <div className="menu-items">
-          {sagas.map((saga) => (
-            <button
-              key={saga.id}
-              className={`menu-item ${
-                saga.id === activeSagaId ? "active" : ""
-              }`}
-              onClick={() => scrollToSaga(saga.id)}
-            >
-              {saga.title}
-            </button>
-          ))}
-        </div>
-      </nav>
+      <SideMenu
+        sagas={sagas}
+        activeSagaId={activeSagaId}
+        onSagaClick={scrollToSaga}
+      />
 
       <div className="container">
         {sagas.map((saga) => (
@@ -399,22 +391,12 @@ function App() {
         ))}
       </div>
 
-      <button
-        className={`toggle-info ${showInfo ? "panel-open" : "panel-closed"}`}
-        onClick={() => setShowInfo(!showInfo)}
-        aria-label={showInfo ? "Hide Information" : "Show Information"}
-      >
-        {showInfo ? "❯" : "❮"}
-      </button>
-
-      <div className={`info-panel ${!showInfo ? "hidden" : ""}`}>
-        <div className="info-content">
-          <div className="info-section">
-            <h3>Informations</h3>
-            <p>{sagas.find((saga) => saga.id === activeSagaId)?.information}</p>
-          </div>
-        </div>
-      </div>
+      <InfoPanel
+        sagas={sagas}
+        activeSagaId={activeSagaId}
+        showInfo={showInfo}
+        onToggleInfo={() => setShowInfo(!showInfo)}
+      />
     </div>
   );
 }
