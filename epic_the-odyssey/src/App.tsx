@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MusicPlayer } from "./components/MusicPlayer";
 import { SideMenu } from "./components/SideMenu";
 import { InfoPanel } from "./components/InfoPanel";
+import { WelcomeText } from "./components/WelcomeText";
 import { Saga } from "./types/saga";
 import "./App.css";
 
@@ -356,6 +357,7 @@ function App() {
 
   return (
     <div className="app-layout">
+      <WelcomeText />
       <SideMenu
         sagas={sagas}
         activeSagaId={activeSagaId}
