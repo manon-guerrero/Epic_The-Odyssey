@@ -374,7 +374,6 @@ function App() {
       />
 
       <div className="container">
-        // ... existing code ...
         {sagas.map((saga) => (
           <div
             key={saga.id}
