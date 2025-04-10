@@ -9,21 +9,21 @@ interface MusicPlayerProps {
 export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState(
-    selectedSaga.audioTracks[0]?.id
+    selectedSaga.audioTracks?.[0]?.id ?? ""
   );
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const currentTrack = selectedSaga.audioTracks.find(
+  const currentTrack = selectedSaga.audioTracks?.find(
     (track) => track.id === currentTrackId
   );
 
   useEffect(() => {
     setIsPlaying(false);
     setCurrentTime(0);
-    setCurrentTrackId(selectedSaga.audioTracks[0]?.id);
+    setCurrentTrackId(selectedSaga.audioTracks?.[0]?.id ?? "");
   }, [selectedSaga]);
 
   const togglePlay = () => {
@@ -68,7 +68,7 @@ export function MusicPlayer({ selectedSaga }: MusicPlayerProps) {
   return (
     <div className="music-player" onClick={(e) => e.stopPropagation()}>
       <div className="track-list">
-        {selectedSaga.audioTracks.map((track) => (
+        {selectedSaga.audioTracks?.map((track) => (
           <button
             key={track.id}
             className={`track-button ${
